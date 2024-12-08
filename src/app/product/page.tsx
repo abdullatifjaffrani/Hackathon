@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from 'react';
 import Image from 'next/image';
 import { FeaturedProducts } from '@/components/sections/FeaturedProducts';
@@ -10,14 +11,14 @@ interface Product {
   description: string;
 }
 
-// Props interface with params
-interface ProductProps {
+// Manually type the params object structure
+interface ProductPageParams {
   params: {
-    id: string; // Dynamically passed ID
+    id: string;
   };
 }
 
-const ProductPage = ({ params }: ProductProps) => {
+const ProductPage = ({ params }: ProductPageParams) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
