@@ -1,21 +1,17 @@
-"use client";
+"use client"; // This marks the component as a client component.
 
+import { NextPage } from 'next';
 import { useState } from 'react';
 import Image from 'next/image';
 import { FeaturedProducts } from '@/components/sections/FeaturedProducts';
 
-// Define the type for product
-interface Product {
-  image: string;
-  name: string;
-  description: string;
+interface ProductPageProps {
+  params: {
+    id: string;
+  };
 }
 
-// Correct usage with Next.js's built-in typing
-type Params = { params: { id: string } };
-
-// Main Component
-const ProductPage = ({ params }: Params) => {
+const ProductPage: NextPage<ProductPageProps> = ({ params }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +24,7 @@ const ProductPage = ({ params }: Params) => {
         {/* Image Section */}
         <div className="relative">
           <Image
-            src="/assets/ourproducts/Image1.png" // Replace with dynamic image if available
+            src="/assets/ourproducts/Image1.png"
             alt={params.id}
             width={500}
             height={500}
@@ -38,36 +34,32 @@ const ProductPage = ({ params }: Params) => {
 
         {/* Product Details Section */}
         <div className="space-y-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            {params.id}
-          </h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{params.id}</h1>
           <p className="text-base sm:text-lg text-gray-600">
-            Enhance your interiors with this beautifully crafted luxury stool chair.
+            Enhance your interiors with this beautifully crafted luxury product.
           </p>
 
-          {/* Quantity Selector */}
+          {/* Quantity */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <label htmlFor="quantity" className="text-gray-700">
-              Quantity:
-            </label>
+            <label htmlFor="quantity" className="text-gray-700">Quantity:</label>
             <input
               type="number"
               id="quantity"
               value={quantity}
               onChange={handleQuantityChange}
               className="border rounded-md p-2 w-20 text-center"
-              min="1"
+              min={1}
             />
           </div>
 
-          {/* Add to Cart Button */}
+          {/* Add To Cart */}
           <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md text-sm sm:text-base">
             Add to Cart
           </button>
         </div>
       </div>
-
-      {/* Featured Products */}
+      
+      {/* Featured Products Section */}
       <div className="mt-12">
         <FeaturedProducts />
       </div>
