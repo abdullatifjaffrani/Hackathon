@@ -10,12 +10,14 @@ interface Product {
   description: string;
 }
 
-// Define props with the Product type
+// Props interface with params
 interface ProductProps {
-  product: Product;
+  params: {
+    id: string; // Dynamically passed ID
+  };
 }
 
-const Product = ({ product }: ProductProps) => {
+const ProductPage = ({ params }: ProductProps) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +30,8 @@ const Product = ({ product }: ProductProps) => {
         {/* Image Section */}
         <div className="relative">
           <Image
-            src="/assets/ourproducts/Image1.png" // Replace with product.image for dynamic data
-            alt={product?.name || "Product Image"}
+            src="/assets/ourproducts/Image1.png" // Replace with dynamic image if available
+            alt={params.id}
             width={500}
             height={500}
             className="rounded-md object-cover w-full h-auto"
@@ -39,7 +41,7 @@ const Product = ({ product }: ProductProps) => {
         {/* Product Details Section */}
         <div className="space-y-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            Luxury Stool Chair
+            {params.id}
           </h1>
           <p className="text-base sm:text-lg text-gray-600">
             Enhance your interiors with this beautifully crafted luxury stool chair.
@@ -75,4 +77,4 @@ const Product = ({ product }: ProductProps) => {
   );
 };
 
-export default Product;
+export default ProductPage;
