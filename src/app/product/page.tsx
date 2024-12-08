@@ -3,15 +3,15 @@
 import Image from "next/image";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
 
-// Correct UI/UX code only, no logic or event handlers
-const ProductPage = ({ params }: { params: { id: string } }) => {
+// Correct UI/UX code only, no logic, no params
+const ProductPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Image Section */}
         <div className="relative">
           <Image
-            src="/assets/ourproducts/Image1.png"
+            src="/assets/ourproducts/Image3.png"
             alt="product-image"
             width={500}
             height={500}
