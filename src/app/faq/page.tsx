@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function FAQ() {
   return (
     <div className="bg-gray-50 min-h-screen font-sans">
