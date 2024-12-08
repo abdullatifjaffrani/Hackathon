@@ -11,14 +11,11 @@ interface Product {
   description: string;
 }
 
-// Manually type the params object structure
-interface ProductPageParams {
-  params: {
-    id: string;
-  };
-}
+// Correct usage with Next.js's built-in typing
+type Params = { params: { id: string } };
 
-const ProductPage = ({ params }: ProductPageParams) => {
+// Main Component
+const ProductPage = ({ params }: Params) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
