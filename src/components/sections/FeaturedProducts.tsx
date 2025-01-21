@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { client } from '../../sanity/lib/client'; // Adjust path as necessary
-import { urlFor } from '../../lib/imageurl'; // Adjust path as necessary
-import { Product } from '../../app/types/types'; // Adjust path as necessary
+import { client } from '../../sanity/lib/client'; 
+import { urlFor } from '../../lib/imageurl'; 
+import { Product } from '../../app/types/types'; 
+import Image from 'next/image';
 
 export function FeaturedProducts() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -32,7 +33,7 @@ export function FeaturedProducts() {
           {featuredProducts.map((product) => (
             <Link key={product._id} href={`/product/${product._id}`}>
               <div className="block hover:scale-105 cursor-pointer">
-                <img
+                <Image
                   src={urlFor(product.image).url()}
                   alt={product.title}
                   className="w-full h-auto rounded-lg"
