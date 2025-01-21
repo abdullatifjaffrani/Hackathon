@@ -13,7 +13,7 @@ interface Product {
 
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
   try {
-    const { id } = await params; // Awaiting the params object to ensure it's fully resolved
+    const { id } = params; 
     const products: Product[] = await fetchProductsByCategory(id);
 
     return (
@@ -24,7 +24,7 @@ const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
             <div className="hover:scale-105" key={product._id}>
               <Link href={`/product/${product._id}`}>
                 <Image
-                  src={urlFor(product.image).url()} // Ensure this generates a valid URL
+                  src={urlFor(product.image).url()} 
                   alt={product.title}
                   width={300}
                   height={300}
