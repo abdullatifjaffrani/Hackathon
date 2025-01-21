@@ -1,22 +1,25 @@
-import Image from "next/image";
-import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory";
-import Link from "next/link";
-import { urlFor } from "@/lib/imageurl";
+import Image from "next/image"
+import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory"
+import Link from "next/link"
+import { urlFor } from "@/lib/imageurl"
 
 interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  image: string;
-  description: string;
+  _id: string
+  title: string
+  price: number
+  image: string
+  description: string
 }
 
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Await the params object
-  const { id } = await params; // Awaiting params to ensure it's fully resolved
+interface CategoryDetailPageProps {
+  params: { id: string }
+}
 
-  // Fetch products using the awaited id
-  const products: Product[] = await fetchProductsByCategory(id);
+const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
+  const { id } = params // Remove the await here
+
+  // Fetch products using the id
+  const products: Product[] = await fetchProductsByCategory(id)
 
   return (
     <div className="container mx-auto p-6 min-h-screen">
@@ -26,16 +29,14 @@ const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
           <div className="hover:scale-105" key={product._id}>
             <Link href={`/product/${product._id}`}>
               <Image
-                src={urlFor(product.image).url()}
+                src={urlFor(product.image).url() || "/placeholder.svg"}
                 alt={product.title}
                 width={300}
                 height={300}
                 className="rounded-lg"
               />
               <div className="mt-2">
-                <p className="text-base font-medium text-gray-900">
-                  {product.title}
-                </p>
+                <p className="text-base font-medium text-gray-900">{product.title}</p>
                 <p className="text-sm text-gray-500">${product.price}</p>
               </div>
             </Link>
@@ -43,7 +44,8 @@ const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryDetailPage;
+export default CategoryDetailPage
+
