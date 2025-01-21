@@ -33,11 +33,13 @@ export function FeaturedProducts() {
           {featuredProducts.map((product) => (
             <Link key={product._id} href={`/product/${product._id}`}>
               <div className="block hover:scale-105 cursor-pointer">
-                <Image
-                  src={urlFor(product.image).url()}
-                  alt={product.title}
-                  className="w-full h-auto rounded-lg"
-                />
+              <Image
+  src={urlFor(product.image).url()}
+  alt={product.title}
+  width={500} // Adjust the width as per your requirements
+  height={500} // Adjust the height as per your requirements
+  className="w-full h-auto rounded-lg"
+/>
                 <div className="mt-2">
                   <p className="text-base font-medium text-gray-900">
                     {product.title}

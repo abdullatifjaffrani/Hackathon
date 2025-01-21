@@ -4,16 +4,20 @@ import Link from "next/link";
 import { urlFor } from "@/lib/imageurl";
 
 interface Product {
-  image(image: any): unknown;
   _id: string;
   title: string;
   price: number;
-  imageUrl: string;
+  image: string;
   description: string;
 }
 
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
+interface CategoryDetailPageProps {
+  params: { id: string };
+}
+
+const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
   try {
+    // Fetch products by category
     const products: Product[] = await fetchProductsByCategory(params.id);
 
     return (
@@ -22,23 +26,22 @@ const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
           {products.map((product) => (
             <div className="hover:scale-105" key={product._id}>
-            <Link href={`/product/${product._id}`}>
-              <Image
-                src={urlFor(product.image).url()}
-                alt={product.title}
-                width={300}
-                height={300}
-                className="rounded-lg "
-              />
-            
-            <div className="mt-2">
-              <p className="text-base font-medium text-gray-900">
-                {product.title}
-              </p>
-              <p className="text-sm text-gray-500">${product.price}</p>
+              <Link href={`/product/${product._id}`}>
+                <Image
+                  src={urlFor(product.image).url()} // Ensure this function generates a valid URL
+                  alt={product.title}
+                  width={300}
+                  height={300}
+                  className="rounded-lg"
+                />
+                <div className="mt-2">
+                  <p className="text-base font-medium text-gray-900">
+                    {product.title}
+                  </p>
+                  <p className="text-sm text-gray-500">${product.price}</p>
+                </div>
+              </Link>
             </div>
-            </Link>
-          </div>
           ))}
         </div>
       </div>
