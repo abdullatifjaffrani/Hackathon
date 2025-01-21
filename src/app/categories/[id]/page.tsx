@@ -11,28 +11,19 @@ interface Product {
   description: string;
 }
 
-interface Params {
-  id: string;
-}
-
-interface PageProps {
-  params: Params;
-}
-
-const CategoryDetailPage = async ({ params }: PageProps) => {
+const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
   try {
-    const { id } = params; // Directly destructuring params
-    const products: Product[] = await fetchProductsByCategory(id);
+    const products: Product[] = await fetchProductsByCategory(params.id); // Ensure the fetched products are typed
 
     return (
       <div className="container mx-auto p-6 min-h-screen">
         <h1 className="text-3xl font-bold mb-4">Products in Category</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
-          {products.map((product) => (
+          {products.map((product: Product) => ( // Explicitly type the product parameter
             <div className="hover:scale-105" key={product._id}>
               <Link href={`/product/${product._id}`}>
                 <Image
-                  src={urlFor(product.image).url()} // Ensure this generates a valid URL
+                  src={urlFor(product.image).url()}
                   alt={product.title}
                   width={300}
                   height={300}
