@@ -11,9 +11,13 @@ interface Product {
   description: string;
 }
 
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
+interface Params {
+  id: string;
+}
+
+const CategoryDetailPage = async ({ params }: { params: Params }) => {
   try {
-    const { id } = params; 
+    const { id } = params; // Directly destructuring params
     const products: Product[] = await fetchProductsByCategory(id);
 
     return (
@@ -24,7 +28,7 @@ const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
             <div className="hover:scale-105" key={product._id}>
               <Link href={`/product/${product._id}`}>
                 <Image
-                  src={urlFor(product.image).url()} 
+                  src={urlFor(product.image).url()} // Ensure this generates a valid URL
                   alt={product.title}
                   width={300}
                   height={300}
