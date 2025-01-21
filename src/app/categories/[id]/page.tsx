@@ -11,13 +11,8 @@ interface Product {
   description: string;
 }
 
-interface CategoryDetailPageProps {
-  params: { id: string }; // Explicitly define the expected structure of `params`
-}
-
-const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
+const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
   try {
-    // Fetch products by category using the id from params
     const products: Product[] = await fetchProductsByCategory(params.id);
 
     return (
