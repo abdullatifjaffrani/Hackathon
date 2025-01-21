@@ -15,7 +15,11 @@ interface Params {
   id: string;
 }
 
-const CategoryDetailPage = async ({ params }: { params: Params }) => {
+interface PageProps {
+  params: Params;
+}
+
+const CategoryDetailPage = async ({ params }: PageProps) => {
   try {
     const { id } = params; // Directly destructuring params
     const products: Product[] = await fetchProductsByCategory(id);
