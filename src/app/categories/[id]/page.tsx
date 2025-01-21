@@ -21,8 +21,9 @@ interface PageProps {
 }
 
 // Fix the Page function
-export default async function Page({ params }: PageProps) {
-  const products: Product[] = await fetchProductsByCategory(params.id);
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params; // Await the params if it's a Promise.
+  const products: Product[] = await fetchProductsByCategory(resolvedParams.id);
 
   return (
     <div className="container mx-auto p-6 min-h-screen">
@@ -44,15 +45,9 @@ export default async function Page({ params }: PageProps) {
                 />
               </div>
               <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                  {product.title}
-                </h2>
-                <p className="text-gray-600 mb-2 line-clamp-2">
-                  {product.description}
-                </p>
-                <p className="text-xl font-bold text-gray-900">
-                  ${product.price.toFixed(2)}
-                </p>
+                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{product.title}</h2>
+                <p className="text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+                <p className="text-xl font-bold text-gray-900">${product.price.toFixed(2)}</p>
               </div>
             </Link>
           </div>
