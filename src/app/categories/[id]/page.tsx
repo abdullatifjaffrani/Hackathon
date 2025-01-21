@@ -12,12 +12,12 @@ interface Product {
 }
 
 interface CategoryDetailPageProps {
-  params: { id: string };
+  params: { id: string }; // Explicitly define the expected structure of `params`
 }
 
 const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
   try {
-    // Fetch products by category
+    // Fetch products by category using the id from params
     const products: Product[] = await fetchProductsByCategory(params.id);
 
     return (
@@ -28,7 +28,7 @@ const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
             <div className="hover:scale-105" key={product._id}>
               <Link href={`/product/${product._id}`}>
                 <Image
-                  src={urlFor(product.image).url()} // Ensure this function generates a valid URL
+                  src={urlFor(product.image).url()} // Ensure this generates a valid URL
                   alt={product.title}
                   width={300}
                   height={300}
