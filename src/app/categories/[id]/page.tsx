@@ -11,10 +11,9 @@ interface Product {
   description: string;
 }
 
-const CategoryDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
   try {
-    const { id } = await params; // Await `params` to safely extract `id`
-
+    const { id } = await params; // Awaiting the params object to ensure it's fully resolved
     const products: Product[] = await fetchProductsByCategory(id);
 
     return (
