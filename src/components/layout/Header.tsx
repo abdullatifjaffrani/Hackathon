@@ -33,6 +33,9 @@ export function Header() {
               <option>USD</option>
               <option>EUR</option>
             </select>
+            <Link href="/faq" className="text-sm font-medium">
+              FAQ
+            </Link>
           </div>
         </div>
 
@@ -95,6 +98,9 @@ export function Header() {
               <Link href="/" onClick={closeMobileMenu} className="text-lg font-medium hover:text-teal-600">
                 Home
               </Link>
+              <Link href="/categories" onClick={closeMobileMenu} className="text-lg font-medium hover:text-teal-600">
+                Categories
+              </Link>
               <Link href="/products" onClick={closeMobileMenu} className="text-lg font-medium hover:text-teal-600">
                 Products
               </Link>
@@ -103,9 +109,6 @@ export function Header() {
               </Link>
               <Link href="/contact" onClick={closeMobileMenu} className="text-lg font-medium hover:text-teal-600">
                 Contact Us
-              </Link>
-              <Link href="/faq" onClick={closeMobileMenu} className="text-lg font-medium hover:text-teal-600">
-                FAQ
               </Link>
             </div>
           </nav>
@@ -117,6 +120,9 @@ export function Header() {
             <Link href="/" className="text-sm font-medium">
               Home
             </Link>
+            <Link href="/categories" className="text-sm font-medium">
+              Categories
+            </Link>
             <Link href="/products" className="text-sm font-medium">
               Products
             </Link>
@@ -125,9 +131,6 @@ export function Header() {
             </Link>
             <Link href="/contact" className="text-sm font-medium">
               Contact Us
-            </Link>
-            <Link href="/faq" className="text-sm font-medium">
-              FAQ
             </Link>
           </div>
           <div className="text-sm text-gray-500">Call Us: +1 (234) 567-8901</div>

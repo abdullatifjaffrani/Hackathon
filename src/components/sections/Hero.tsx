@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button"
 import Image from "next/image"
+import Link from "next/link"
 
 export function HeroSection() {
   return (
@@ -12,9 +13,11 @@ export function HeroSection() {
                 Best Furniture Collection For Your Interior.
               </h1>
             </div>
-            <Button className="w-full sm:w-auto bg-teal-500 hover:bg-teal-600 text-white">
-              Shop Now
-            </Button>
+            <Link href="/products">
+  <Button className="w-full sm:w-auto bg-teal-500 hover:bg-teal-600 text-white">
+    Shop Now
+  </Button>
+</Link>
           </div>
           <div className="flex justify-center">
             <Image
