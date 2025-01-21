@@ -12,8 +12,11 @@ interface Product {
 }
 
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Fetch products directly without error handling
-  const products: Product[] = await fetchProductsByCategory(params.id);
+  // Await the params object
+  const { id } = await params; // Awaiting params to ensure it's fully resolved
+
+  // Fetch products using the awaited id
+  const products: Product[] = await fetchProductsByCategory(id);
 
   return (
     <div className="container mx-auto p-6 min-h-screen">
