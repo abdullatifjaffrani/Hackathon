@@ -11,12 +11,12 @@ interface Product {
   description: string
 }
 
-interface CategoryDetailPageProps {
+export default async function CategoryDetailPage({
+  params,
+}: {
   params: { id: string }
-}
-
-const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
-  const { id } = params // Remove the await here
+}) {
+  const { id } = params
 
   // Fetch products using the id
   const products: Product[] = await fetchProductsByCategory(id)
@@ -46,6 +46,4 @@ const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
     </div>
   )
 }
-
-export default CategoryDetailPage
 
