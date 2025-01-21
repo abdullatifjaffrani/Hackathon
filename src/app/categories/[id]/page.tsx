@@ -1,21 +1,28 @@
-import Image from "next/image"
-import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory"
-import Link from "next/link"
+
+import Image from "next/image";
+import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory";
+import Link from "next/link";
 
 interface Product {
-  _id: string
-  title: string
-  price: number
+  _id: string;
+  title: string;
+  price: number;
   image: {
     asset: {
-      url: string
-    }
-  }
-  description: string
+      url: string;
+    };
+  };
+  description: string;
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const products: Product[] = await fetchProductsByCategory(params.id)
+// Explicitly type the props for the Page function
+interface PageProps {
+  params: { id: string };
+}
+
+// Fix the Page function
+export default async function Page({ params }: PageProps) {
+  const products: Product[] = await fetchProductsByCategory(params.id);
 
   return (
     <div className="container mx-auto p-6 min-h-screen">
@@ -37,15 +44,20 @@ export default async function Page({ params }: { params: { id: string } }) {
                 />
               </div>
               <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{product.title}</h2>
-                <p className="text-gray-600 mb-2 line-clamp-2">{product.description}</p>
-                <p className="text-xl font-bold text-gray-900">${product.price.toFixed(2)}</p>
+                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                  {product.title}
+                </h2>
+                <p className="text-gray-600 mb-2 line-clamp-2">
+                  {product.description}
+                </p>
+                <p className="text-xl font-bold text-gray-900">
+                  ${product.price.toFixed(2)}
+                </p>
               </div>
             </Link>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
-
