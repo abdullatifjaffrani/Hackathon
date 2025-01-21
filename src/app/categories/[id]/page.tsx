@@ -11,9 +11,11 @@ interface Product {
   description: string;
 }
 
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
+const CategoryDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   try {
-    const products: Product[] = await fetchProductsByCategory(params.id);
+    const { id } = await params; // Await `params` to safely extract `id`
+
+    const products: Product[] = await fetchProductsByCategory(id);
 
     return (
       <div className="container mx-auto p-6 min-h-screen">
