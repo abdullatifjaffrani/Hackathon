@@ -2,6 +2,7 @@ import Image from "next/image"
 import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory"
 import Link from "next/link"
 import { urlFor } from "@/lib/imageurl"
+import type { Metadata } from "next"
 
 interface Product {
   _id: string
@@ -11,11 +12,18 @@ interface Product {
   description: string
 }
 
-export default async function CategoryDetailPage({
-  params,
-}: {
+type Props = {
   params: { id: string }
-}) {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return {
+    title: `Category ${params.id}`,
+  }
+}
+
+async function CategoryDetailPage({ params, searchParams }: Props) {
   const { id } = params
 
   // Fetch products using the id
@@ -46,4 +54,6 @@ export default async function CategoryDetailPage({
     </div>
   )
 }
+
+export default CategoryDetailPage
 
