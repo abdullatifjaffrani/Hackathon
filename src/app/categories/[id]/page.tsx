@@ -1,58 +1,65 @@
-
-import Image from "next/image";
-import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory";
-import Link from "next/link";
+import Image from "next/image"
+import { fetchProductsByCategory } from "../../../app/utils/fetchProductsByCategory"
+import Link from "next/link"
+import { urlFor } from "@/lib/imageurl"
 
 interface Product {
-  _id: string;
-  title: string;
-  price: number;
+  _id: string
+  title: string
+  price: number
   image: {
     asset: {
-      url: string;
-    };
-  };
-  description: string;
+      _ref: string
+    }
+  }
+  description: string
 }
 
-// Explicitly type the props for the Page function
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }
 
-// Fix the Page function
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = await params; // Await the params if it's a Promise.
-  const products: Product[] = await fetchProductsByCategory(resolvedParams.id);
+const CategoryDetailPage = async ({ params }: PageProps) => {
+  // Await the params before using them
+  const { id } = await params
 
-  return (
-    <div className="container mx-auto p-6 min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">Products in Category</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {products.map((product) => (
-          <div
-            key={product._id}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-          >
-            <Link href={`/product/${product._id}`}>
-              <div className="aspect-w-1 aspect-h-1">
+  try {
+    const products: Product[] = await fetchProductsByCategory(id)
+
+    return (
+      <div className="container mx-auto p-6 min-h-screen">
+        <h1 className="text-3xl font-bold mb-4">Products in Category</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+          {products.map((product) => (
+            <div className="hover:scale-105" key={product._id}>
+              <Link href={`/product/${product._id}`}>
                 <Image
-                  src={product.image.asset.url || "/placeholder.svg"}
+                  src={urlFor(product.image).url() || "/placeholder.svg"}
                   alt={product.title}
                   width={300}
                   height={300}
-                  className="object-cover w-full h-full"
+                  className="rounded-lg"
                 />
-              </div>
-              <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{product.title}</h2>
-                <p className="text-gray-600 mb-2 line-clamp-2">{product.description}</p>
-                <p className="text-xl font-bold text-gray-900">${product.price.toFixed(2)}</p>
-              </div>
-            </Link>
-          </div>
-        ))}
+                <div className="mt-2">
+                  <p className="text-base font-medium text-gray-900">{product.title}</p>
+                  <p className="text-sm text-gray-500">${product.price}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    )
+  } catch (error) {
+    console.error("Error fetching products:", error)
+    return (
+      <div className="container mx-auto p-6 min-h-screen">
+        <h1 className="text-3xl font-bold mb-4">Products in Category</h1>
+        <p className="text-red-500">Failed to load products.</p>
+      </div>
+    )
+  }
 }
+
+export default CategoryDetailPage
+
