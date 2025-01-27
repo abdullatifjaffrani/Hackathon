@@ -4,6 +4,7 @@ import { fetchCategories } from "../../utils/fetchCategories";
 import Link from "next/link";
 import { urlFor } from "@/lib/imageurl";
 
+// Product interface definition
 interface Product {
   _id: string;
   title: string;
@@ -12,12 +13,12 @@ interface Product {
   description: string;
 }
 
-// This will define the static paths for dynamic routes
+// Static Params for dynamic routes
 export async function generateStaticParams() {
   try {
     const categories = await fetchCategories();
     return categories.map((category: { _id: any; }) => ({
-      id: category._id, // Extracting the category ID to generate paths
+      id: category._id, // This generates the dynamic paths
     }));
   } catch (error) {
     console.error("Error generating static params:", error);
@@ -25,12 +26,13 @@ export async function generateStaticParams() {
   }
 }
 
-// This is where we use params synchronously for dynamic routes
+// Component handling dynamic category page
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
+  // Await the params (fix for Next.js 15 behavior)
+  const { id } = await params;  // Await the params before accessing id
+  
   try {
-    const { id } = params; // This destructuring should be direct, no need for async here.
-
-    const products: Product[] = await fetchProductsByCategory(id); // Fetch products using the category ID
+    const products: Product[] = await fetchProductsByCategory(id); // Fetch products by category ID
 
     if (!products || products.length === 0) {
       return (
