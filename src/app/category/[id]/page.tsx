@@ -12,12 +12,12 @@ interface Product {
   description: string;
 }
 
-// Generate static params for dynamic category routes
+// This will define the static paths for dynamic routes
 export async function generateStaticParams() {
   try {
     const categories = await fetchCategories();
     return categories.map((category: { _id: any; }) => ({
-      id: category._id, // Map category ID to the dynamic route
+      id: category._id, // Extracting the category ID to generate paths
     }));
   } catch (error) {
     console.error("Error generating static params:", error);
@@ -25,10 +25,10 @@ export async function generateStaticParams() {
   }
 }
 
+// This is where we use params synchronously for dynamic routes
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
   try {
-    // Ensure params is awaited and destructured properly
-    const id = params.id;
+    const { id } = params; // This destructuring should be direct, no need for async here.
 
     const products: Product[] = await fetchProductsByCategory(id); // Fetch products using the category ID
 
