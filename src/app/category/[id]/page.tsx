@@ -12,12 +12,12 @@ interface Product {
   description: string;
 }
 
-// Generate static params for dynamic route
+// Generate static params for dynamic category routes
 export async function generateStaticParams() {
   try {
     const categories = await fetchCategories();
     return categories.map((category: { _id: any; }) => ({
-      id: category._id, // Use category ID as the dynamic parameter
+      id: category._id, // Map category ID to the dynamic route
     }));
   } catch (error) {
     console.error("Error generating static params:", error);
@@ -26,11 +26,9 @@ export async function generateStaticParams() {
 }
 
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Await the params here
-  const { id } = await params;
-
   try {
-    const products: Product[] = await fetchProductsByCategory(id);
+    // Directly use params.id without needing to await it
+    const products: Product[] = await fetchProductsByCategory(params.id);
 
     if (!products || products.length === 0) {
       return (
