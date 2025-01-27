@@ -28,8 +28,7 @@ export async function generateStaticParams() {
 
 // Component handling dynamic category page
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Await the params (fix for Next.js 15 behavior)
-  const { id } = await params;  // Await the params before accessing id
+  const { id } = await params;  // Await the params to ensure their properties are resolved before usage
   
   try {
     const products: Product[] = await fetchProductsByCategory(id); // Fetch products by category ID
