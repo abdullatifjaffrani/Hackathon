@@ -26,7 +26,7 @@ export async function Categories() {
           {categories.map((category) => (
             <Link
               key={category._id}
-              href={`/categories/${category._id}`} // Dynamic link to a detailed category page
+              href={`/category/${category._id}`} // Dynamic link to a detailed category page
               className="relative group overflow-hidden rounded-lg"
             >
               <Image

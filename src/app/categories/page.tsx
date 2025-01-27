@@ -19,7 +19,7 @@ const CategoriesPage = async () => {
         {categories.map((category) => (
           <Link
             key={category._id}
-            href={`/categories/${category._id}`} // Dynamic link to a detailed category page
+            href={`/category/${category._id}`} // Dynamic link to a detailed category page
             className="block border rounded-lg shadow hover:shadow-lg p-4 transition-transform hover:scale-105"
           >
             <div>
