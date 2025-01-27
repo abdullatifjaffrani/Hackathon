@@ -28,8 +28,8 @@ export async function generateStaticParams() {
 
 // Page component for Category Detail, using async/await
 const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Ensure we await params if necessary
-  const { id } = await params;  // Explicitly await params
+  // Directly destructure params without await
+  const { id } = params;  // No await needed here
 
   try {
     // Fetch products for the given category
