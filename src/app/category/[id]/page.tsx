@@ -26,10 +26,14 @@ export async function generateStaticParams() {
   }
 }
 
+// Define the expected params type explicitly
+interface CategoryPageProps {
+  params: { id: string };
+}
+
 // Page component for Category Detail, using async/await
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  // Directly destructure params without await
-  const { id } = params;  // No await needed here
+const CategoryDetailPage = async ({ params }: CategoryPageProps) => {
+  const { id } = params;
 
   try {
     // Fetch products for the given category
