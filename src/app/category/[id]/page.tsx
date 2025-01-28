@@ -3,7 +3,7 @@ import { fetchProductsByCategory } from "../../utils/fetchProductsByCategory";
 import { fetchCategories } from "../../utils/fetchCategories";
 import Link from "next/link";
 import { urlFor } from "@/lib/imageurl";
-
+import { Metadata, ResolvingMetadata } from 'next';
 // Product interface definition
 interface Product {
   _id: string;
@@ -14,11 +14,11 @@ interface Product {
 }
 
 // Static Params for dynamic routes
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ id: string }[]> {
   try {
     const categories = await fetchCategories();
     return categories.map((category: { _id: any; }) => ({
-      id: category._id, // This generates the dynamic paths
+      id: category._id,
     }));
   } catch (error) {
     console.error("Error generating static params:", error);
@@ -27,12 +27,12 @@ export async function generateStaticParams() {
 }
 
 // Define the expected params type explicitly
-interface CategoryPageProps {
+type Props = {
   params: { id: string };
-}
+};
 
 // Page component for Category Detail, using async/await
-const CategoryDetailPage = async ({ params }: CategoryPageProps) => {
+const CategoryDetailPage = async ({ params }: Props) => {
   const { id } = params;
 
   try {
