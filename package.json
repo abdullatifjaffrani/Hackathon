@@ -26,7 +26,8 @@
     "@types/react-dom": "^18.2.19",
     "sanity": "^3.70.0",
     "styled-components": "^6.1.14",
-    "tailwind-merge": "^2.5.5"
+    "tailwind-merge": "^2.5.5",
+    "react-dom": "18.2.0"    
   },
   "devDependencies": {
     "@types/node": "^20",

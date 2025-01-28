@@ -1,10 +1,46 @@
 {
   "compilerOptions": {
-    "types": ["next/types", "next/navigation", "next/image"],
+    "types": [
+      "next/types",
+      "next/navigation",
+      "next/image"
+    ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "exclude": [".next", "node_modules"]
+  "exclude": [
+    ".next",
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
